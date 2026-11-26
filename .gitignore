@@ -1,0 +1,9 @@
+node_modules/
+dist/
+data/raw/
+data/text/
+data/ocr/
+.DS_Store
+.vercel
+data/e2e-cases.json
+data/e2e/

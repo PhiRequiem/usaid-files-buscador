@@ -1,0 +1,12 @@
+[
+  { "nombre": "Organización con acentos (PDF y hoja)", "variantes": ["Fundación Ejemplo"], "minimo": 2, "incluye": ["Memo_Prueba_Ficticio.pdf", "Actividades_Ficticias.xlsx"] },
+  { "nombre": "Término solo en PDF escaneado (OCR)", "variantes": ["zarzamoraplex"], "minimo": 1, "incluye": ["Carta Escaneada Ficticia"] },
+  { "nombre": "Varias variantes (siglas, nombre, award)", "variantes": ["REFIPE", "Señal Clara", "72099999CA00002"], "minimo": 4 },
+  { "nombre": "Dominio", "variantes": ["ejemplo-ficticio.org"], "minimo": 1 },
+  { "nombre": "Persona con acentos", "variantes": ["Ana Pérez Núñez"], "minimo": 1 },
+  { "nombre": "Palabras separadas en la misma página", "variantes": ["Fundación Ficticio"], "minimo": 1 },
+  { "nombre": "Filtro también menciona (país con acento)", "variantes": ["Señal Clara"], "tambien": "México", "minimo": 1, "incluye": ["Actividades_Ficticias.xlsx"] },
+  { "nombre": "Filtro también menciona sin coincidencias", "variantes": ["Fundación Ejemplo"], "tambien": "Kazajistán", "ninguno": true },
+  { "nombre": "Sin falsos positivos: palabras inexistentes", "variantes": ["organizacion inexistente xyz"], "ninguno": true },
+  { "nombre": "Sin falsos positivos: coincidencia aproximada", "variantes": ["organizacion"], "ninguno": true }
+]

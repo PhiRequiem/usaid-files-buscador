@@ -1,0 +1,9 @@
+# Lo que NO se sube a Vercel. El sitio solo necesita src/, public/ (incluye el
+# índice ya generado en public/pagefind), index.html, package*.json,
+# vite.config.js y vercel.json.
+data/
+docs/
+scripts/
+dist/
+node_modules/
+.DS_Store
