@@ -1,6 +1,6 @@
 # Plan por fases: buscador privado de los "USAID Files"
 
-Fecha: 2026-11-25. Estado: **aprobado** (2026-11-25).
+Fecha: 2026-11-25. Estado: **publicado** (2026-11-25); última actualización 2026-11-26.
 
 ## Decisiones tomadas (2026-11-25)
 
@@ -162,3 +162,31 @@ Pendiente:
 - **Hosting: Vercel.** `.vercelignore` impide subir `data/`, `docs/` y `scripts/`. Sin Analytics ni Speed Insights.
 - **Filtro "También menciona (opcional)":** un campo de texto libre (sin lista de países). Solo quedan las páginas o filas donde aparecen la variante y el filtro, verificado en el texto. El filtro se resalta en azul. Además reduce las peticiones por búsqueda, porque descarga menos fragmentos.
 - La prueba E2E soporta `"tambien"` en los casos. La detección de fugas ahora compara palabras completas, porque "meta" daba falso positivo dentro del nombre de archivo `…pf_meta`.
+
+## Publicación (2026-11-25)
+
+- **Producción:** https://usaid-files-buscador.vercel.app (Vercel, equipo "seguridades", proyecto `usaid-files-buscador`). Se publica con `npx vercel --prod`; no hay integración Git.
+- **Repo público:** https://github.com/PhiRequiem/usaid-files-buscador (rama `main`).
+- **Verificación en producción:** llegan todos los headers (CSP, Referrer-Policy, Permissions-Policy, nosniff, más HSTS de Vercel). Sin cookies ni scripts de terceros. `data/` y `scripts/` dan 404. La E2E con 10 casos de términos públicos pasó: 0 fugas, 0 peticiones externas y 0 errores de CSP.
+  - Para repetirla: `node scripts/test/e2e-privacy.mjs --url https://usaid-files-buscador.vercel.app/ --cases <casos.json>`.
+
+## Mejoras propuestas (2026-11-26, en espera)
+
+Se dejan como están por ahora; no se implementan sin pedirlo.
+
+1. Contenido y enlace de "Qué hacer si apareces" (sigue como placeholder).
+2. README del repo: qué es, modelo de privacidad, cómo reproducir el índice y SHA-256 del ZIP.
+3. Dominio neutral, sin "usaid", para que quien vigile la red no deduzca qué se consulta.
+4. Headers `Cross-Origin-Opener-Policy` y `Cross-Origin-Resource-Policy`.
+5. Versión `.onion` (Tor) para personas en alto riesgo (requiere servidor propio).
+6. Transcribir los 3 videos en local (Whisper) e indexarlos con el minuto.
+7. Repasar el OCR de las páginas difíciles (p. ej. la diapositiva "NEPAL") y comparar con Pinpoint usando términos de prueba.
+8. Búsqueda aproximada opcional para errores de OCR, apagada por defecto y con sus resultados marcados aparte.
+9. Guardar los resultados en un archivo generado en el navegador, sin red.
+10. Modo oscuro automático.
+11. Mostrar también el contexto del filtro cuando está lejos de la variante.
+12. Conectar el repo en Vercel; en ese caso, apagar la Vercel Toolbar de las vistas previas.
+
+## Seguimiento
+
+- **2026-12-11:** revisar si USAID cambió o agregó archivos (nuevo ZIP o hash distinto). Si hay cambios: `npm run unpack -- --force && npm run manifest && npm run extract && npm run index && npm run verify`, luego `npm run build`, la E2E y `npx vercel --prod`.
